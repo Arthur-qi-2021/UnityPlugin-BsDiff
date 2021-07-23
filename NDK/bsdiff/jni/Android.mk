@@ -1,0 +1,37 @@
+LOCAL_PATH := $(call my-dir)
+3RD_INC_DIR=$(LOCAL_PATH)/3rd/include
+3RD_LIB_DIR=$(LOCAL_PATH)/3rd/libs
+
+
+include $(CLEAR_VARS)
+
+LOCAL_MODULE:=bz2
+LOCAL_SRC_FILES:=$(3RD_LIB_DIR)/$(TARGET_ARCH_ABI)/libbz2.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := bsdiff
+
+
+LOCAL_C_INCLUDES +=$(3RD_INC_DIR)
+LOCAL_STATIC_LIBRARIES:=bz2
+
+LOCAL_SRC_FILES :=bsdiff/bsdiff.c
+
+
+
+
+include $(BUILD_SHARED_LIBRARY)
+
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := bspatch
+
+LOCAL_SRC_FILES :=bsdiff/bspatch.c
+
+LOCAL_C_INCLUDES:=$(3RD_INC_DIR)
+LOCAL_STATIC_LIBRARIES:=bz2
+
+
+include $(BUILD_SHARED_LIBRARY)
